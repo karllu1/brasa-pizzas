@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080808">
+
+  <title>Brasa Pizzas | Peça sua pizza online</title>
+
+  <meta
+    name="description"
+    content="Confira o cardápio da Brasa Pizzas, escolha seus sabores e faça seu pedido online pelo WhatsApp."
+  >
+
+  <meta property="og:title" content="Brasa Pizzas | Peça sua pizza online">
+  <meta property="og:description" content="Sabor que marca. Qualidade que conquista.">
+  <meta property="og:type" content="website">
+
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+  <div class="site-glow site-glow--one" aria-hidden="true"></div>
+  <div class="site-glow site-glow--two" aria-hidden="true"></div>
+
+  <!-- CABEÇALHO -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+
+      <a class="brand" href="#inicio" aria-label="Brasa Pizzas - Início">
+        <img
+          class="brand__logo"
+          src="assets/Logo Brasa pizzaria.png"
+          alt="Logo Brasa Pizzas"
+          width="52"
+          height="52"
+        >
+
+        <span class="brand__text">
+          <strong data-business-name>BRASA PIZZAS</strong>
+          <small>Pizza • Brasa • Sabor</small>
+        </span>
+      </a>
+
+      <button
+        class="icon-button menu-toggle"
+        id="menuToggle"
+        type="button"
+        aria-label="Abrir menu"
+        aria-controls="mainNav"
+        aria-expanded="false"
+      >
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav
+        class="nav"
+        id="mainNav"
+        aria-label="Navegação principal"
+      >
+        <a href="#inicio">Início</a>
+        <a href="#cardapio">Cardápio</a>
+        <a href="#mais-pedidas">Mais pedidas</a>
+
+        <button
+          class="nav-cart"
+          id="navCartButton"
+          type="button"
+          aria-label="Abrir carrinho"
+        >
+          🛒 Carrinho
+          <span id="navCartCount">0</span>
+        </button>
+
+        <a
+          class="nav-whatsapp"
+          id="headerWhatsapp"
+          href="#cardapio"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WhatsApp
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main>
+
+    <!-- APRESENTAÇÃO -->
+    <section class="hero section" id="inicio">
+      <div class="container hero__grid">
+
+        <div class="hero__content">
+
+          <span class="eyebrow">
+            <i aria-hidden="true"></i>
+            PEDIDOS PELO WHATSAPP
+          </span>
+
+          <h1>
+            BRASA<br>
+            <span>PIZZAS</span>
+          </h1>
+
+          <p class="hero__slogan" data-slogan>
+            Sabor que marca. Qualidade que conquista.
+          </p>
+
+          <p class="hero__copy">
+            Escolha sua pizza, monte seu pedido e envie tudo
+            prontinho pelo WhatsApp.
+          </p>
+
+          <div class="hero__actions">
+            <a class="button button--primary" href="#cardapio">
+              FAÇA SEU PEDIDO
+              <span aria-hidden="true">→</span>
+            </a>
+
+            <button
+              class="button button--ghost"
+              id="heroCartButton"
+              type="button"
+            >
+              VER CARRINHO
+            </button>
+          </div>
+
+          <div class="hero__status">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Confira nosso cardápio e faça seu pedido</span>
+          </div>
+
+        </div>
+
+        <div class="hero__visual" aria-hidden="true">
+          <div class="flame-ring flame-ring--outer"></div>
+          <div class="flame-ring flame-ring--inner"></div>
+
+          <div class="hero-pizza">
+            <div class="pizza-crust"></div>
+            <div class="pizza-cheese"></div>
+            <span>🍕</span>
+          </div>
+
+          <div class="ember ember--1"></div>
+          <div class="ember ember--2"></div>
+          <div class="ember ember--3"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CARDÁPIO -->
+    <section class="section menu-section" id="cardapio">
+      <div class="container">
+
+        <div class="section-heading">
+          <div>
+            <span class="eyebrow">NOSSO CARDÁPIO</span>
+
+            <h2>
+              Escolha sua <span>favorita.</span>
+            </h2>
+          </div>
+
+          <p>
+            Do clássico ao especial da casa: escolha seus sabores
+            e monte seu pedido.
+          </p>
+        </div>
+
+        <div
+          class="category-bar"
+          id="categoryBar"
+          role="tablist"
+          aria-label="Categorias do cardápio"
+        ></div>
+
+        <div class="products-grid" id="productsGrid"></div>
+
+      </div>
+    </section>
+
+    <!-- MAIS PEDIDAS -->
+    <section class="section featured-section" id="mais-pedidas">
+      <div class="container">
+
+        <div class="section-heading section-heading--center">
+          <span class="eyebrow">DESTAQUES</span>
+
+          <h2>
+            As mais <span>pedidas.</span>
+          </h2>
+
+          <p>
+            Uma seleção especial para quem quer ir direto ao ponto.
+          </p>
+        </div>
+
+        <div class="featured-grid" id="featuredGrid"></div>
+
+      </div>
+    </section>
+
+    <!-- CHAMADA PARA AÇÃO -->
+    <section class="cta-section">
+      <div class="container cta-card">
+
+        <div>
+          <span class="eyebrow">BATEU A FOME?</span>
+          <h2>Acenda a brasa.</h2>
+          <p>Seu próximo pedido está a poucos cliques.</p>
+        </div>
+
+        <a class="button button--primary" href="#cardapio">
+          VER CARDÁPIO
+          <span aria-hidden="true">→</span>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+
+      <a class="brand" href="#inicio" aria-label="Voltar ao início">
+        <img
+          class="brand__logo"
+          src="assets/Logo Brasa pizzaria.png"
+          alt=""
+          width="44"
+          height="44"
+        >
+
+        <span class="brand__text">
+          <strong data-business-name>BRASA PIZZAS</strong>
+          <small data-slogan>Sabor que marca. Qualidade que conquista.</small>
+        </span>
+      </a>
+
+      <p>
+        © <span id="currentYear"></span>
+        <span data-business-name>BRASA PIZZAS</span>.
+        Todos os direitos reservados.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- CARRINHO FIXO PARA CELULAR -->
+  <div class="mobile-cart" id="mobileCartBar" hidden>
+    <button
+      type="button"
+      id="mobileCartButton"
+      aria-label="Abrir carrinho"
+    >
+      <span>
+        🛒
+        <b id="mobileCartCount">0</b>
+        itens
+      </span>
+
+      <strong id="mobileCartTotal">R$ 0,00</strong>
+    </button>
+  </div>
+
+  <!-- MODAL DO PRODUTO -->
+  <div class="modal-backdrop" id="productModal" hidden>
+    <section
+      class="modal product-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="productModalTitle"
+    >
+      <button
+        class="modal-close"
+        type="button"
+        data-close-modal="productModal"
+        aria-label="Fechar"
+      >×</button>
+
+      <div id="productModalContent"></div>
+    </section>
+  </div>
+
+  <!-- MODAL DO CARRINHO -->
+  <div class="modal-backdrop" id="cartModal" hidden>
+    <section
+      class="modal cart-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cartTitle"
+    >
+      <button
+        class="modal-close"
+        type="button"
+        data-close-modal="cartModal"
+        aria-label="Fechar"
+      >×</button>
+
+      <div class="modal-header">
+        <span class="eyebrow">SEU PEDIDO</span>
+        <h2 id="cartTitle">Carrinho</h2>
+      </div>
+
+      <div id="cartItems"></div>
+
+      <div class="cart-summary">
+        <div>
+          <span>Subtotal</span>
+          <strong id="cartSubtotal">R$ 0,00</strong>
+        </div>
+
+        <div>
+          <span>Entrega</span>
+          <strong id="cartDelivery">R$ 0,00</strong>
+        </div>
+
+        <div class="cart-total">
+          <span>Total</span>
+          <strong id="cartTotal">R$ 0,00</strong>
+        </div>
+      </div>
+
+      <div class="cart-actions">
+        <button
+          class="button button--ghost"
+          id="clearCartButton"
+          type="button"
+        >
+          LIMPAR
+        </button>
+
+        <button
+          class="button button--primary"
+          id="checkoutButton"
+          type="button"
+        >
+          CONTINUAR
+          <span aria-hidden="true">→</span>
+        </button>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- MODAL DE ENTREGA -->
+  <div class="modal-backdrop" id="checkoutModal" hidden>
+    <section
+      class="modal checkout-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="checkoutTitle"
+    >
+      <button
+        class="modal-close"
+        type="button"
+        data-close-modal="checkoutModal"
+        aria-label="Fechar"
+      >×</button>
+
+      <div class="modal-header">
+        <span class="eyebrow">ÚLTIMA ETAPA</span>
+        <h2 id="checkoutTitle">Dados de entrega</h2>
+        <p>Preencha os dados para montar seu pedido.</p>
+      </div>
+
+      <form id="checkoutForm" novalidate>
+
+        <div class="form-grid">
+
+          <label class="field field--full">
+            Nome completo
+            <input
+              name="name"
+              autocomplete="name"
+              required
+              placeholder="Seu nome completo"
+            >
+          </label>
+
+          <label class="field field--full">
+            Localidade de entrega
+            
+            <select name="deliveryLocation" id="deliveryLocation" required>
+              
+              <option value="">Selecione sua localidade</option>
+              <option value="Cidade">São Sebastião de Lagoa de Roça — área urbana</option>
+              <option value="Tabuleiro">Tabuleiro</option>
+              <option value="Maria Morais">Maria Morais</option>
+              <option value="Tanques">Tanques</option>
+              <option value="Manguape">Manguape</option>
+              <option value="Caracol">Caracol</option>
+              <option value="Palhaça">Palhoça</option>
+              <option value="Camuca">Camuca</option>
+              <option value="Esperança">Esperança</option>   
+              <option value="Lagoa Seca">Lagoa Seca</option>
+            
+            </select>
+
+          </label>
+
+          <label class="field">
+            Telefone
+            <input
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              inputmode="tel"
+              required
+              placeholder="(83) 99999-9999"
+            >
+          </label>
+
+          <label class="field">
+            Rua/Avenida
+            <input
+              name="street"
+              autocomplete="street-address"
+              required
+              placeholder="Nome da rua"
+            >
+          </label>
+
+          <label class="field">
+            Número
+            <input
+              name="number"
+              inputmode="numeric"
+              required
+              placeholder="123"
+            >
+          </label>
+
+          <label class="field">
+            Bairro
+            <input
+              name="neighborhood"
+              required
+              autocomplete="address-level3"
+              placeholder="Seu bairro"
+            >
+          </label>
+
+          <label class="field">
+            Complemento
+            <input
+              name="complement"
+              placeholder="Casa, apartamento..."
+            >
+          </label>
+
+          <label class="field field--full">
+            Ponto de referência
+            <input
+              name="reference"
+              placeholder="Próximo a..."
+            >
+          </label>
+
+        </div>
+
+        <fieldset class="payment-fieldset">
+          <legend>Forma de pagamento</legend>
+
+          <div class="payment-options">
+
+            <label>
+              <input
+                type="radio"
+                name="payment"
+                value="Pix"
+                required
+              >
+              <span>Pix</span>
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="payment"
+                value="Dinheiro"
+              >
+              <span>Dinheiro</span>
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="payment"
+                value="Cartão"
+              >
+              <span>Cartão</span>
+            </label>
+
+          </div>
+
+          <div class="change-box" id="changeBox" hidden>
+
+            <label class="field">
+              Precisa de troco?
+
+              <select name="needsChange" id="needsChange">
+                <option value="Não">Não</option>
+                <option value="Sim">Sim</option>
+              </select>
+            </label>
+
+            <label
+              class="field"
+              id="changeAmountField"
+              hidden
+            >
+              Troco para quanto?
+
+              <input
+                name="changeAmount"
+                id="changeAmount"
+                inputmode="decimal"
+                placeholder="Ex.: 50,00"
+              >
+            </label>
+
+          </div>
+        </fieldset>
+
+        <div
+          class="form-error"
+          id="checkoutError"
+          role="alert"
+          aria-live="polite"
+        ></div>
+
+        <button
+          class="button button--primary button--full"
+          type="submit"
+        >
+          REVISAR PEDIDO
+          <span aria-hidden="true">→</span>
+        </button>
+
+      </form>
+    </section>
+  </div>
+
+  <!-- MODAL DE REVISÃO -->
+  <div class="modal-backdrop" id="reviewModal" hidden>
+    <section
+      class="modal review-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="reviewTitle"
+    >
+      <button
+        class="modal-close"
+        type="button"
+        data-close-modal="reviewModal"
+        aria-label="Fechar"
+      >×</button>
+
+      <div class="modal-header">
+        <span class="eyebrow">CONFIRMAÇÃO</span>
+        <h2 id="reviewTitle">Confira seu pedido</h2>
+      </div>
+
+      <div id="reviewContent"></div>
+
+      <div class="review-actions">
+        <button
+          class="button button--ghost"
+          id="editCheckoutButton"
+          type="button"
+        >
+          VOLTAR
+        </button>
+
+        <button
+          class="button button--primary"
+          id="sendWhatsappButton"
+          type="button"
+        >
+          ENVIAR PELO WHATSAPP
+          <span aria-hidden="true">↗</span>
+        </button>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- NOTIFICAÇÕES -->
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite"
+  ></div>
+
+  <!-- JAVASCRIPT -->
+  <script src="js/config.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/menu.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/whatsapp.js"></script>
+
+</body>
+</html>
+
