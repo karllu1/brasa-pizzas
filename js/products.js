@@ -291,16 +291,6 @@ const PRODUCTS = [
     featured: false
   },
   {
-    id: 29,
-    name: "Coca-Cola 600ml",
-    category: "bebidas",
-    description: "Bebida gelada para acompanhar seu pedido.",
-    image: "assets/bebida-coca-600.jpg",
-    price: 8.9,
-    available: true,
-    featured: true
-  },
-  {
     id: 30,
     name: "Coca-Cola 1 litro",
     category: "bebidas",
@@ -321,16 +311,6 @@ const PRODUCTS = [
     featured: false
   },
   {
-    id: 32,
-    name: "Guaraná 600ml",
-    category: "bebidas",
-    description: "Bebida gelada para acompanhar seu pedido.",
-    image: "assets/bebida-guarana-600.jpg",
-    price: 8.9,
-    available: true,
-    featured: false
-  },
-  {
     id: 33,
     name: "Guaraná 1 litro",
     category: "bebidas",
@@ -341,17 +321,34 @@ const PRODUCTS = [
     featured: false
   },
   {
-    id: 34,
-    name: "Água mineral",
+    id: 35,
+    name: "Coca-Cola 2 litros",
     category: "bebidas",
     description: "Bebida gelada para acompanhar seu pedido.",
-    image: "assets/bebida-agua-crystal.png",
-    price: 4.9,
+    image: "assets/bebida-coca-2l.jpg",
+    price: 16.9,
     available: true,
-    featured: true
+    featured: false
+  },
+  {
+    id: 36,
+    name: "Guaraná 2 litros",
+    category: "bebidas",
+    description: "Bebida gelada para acompanhar seu pedido.",
+    image: "assets/bebida-guarana-2l.jpg",
+    price: 14.9,
+    available: true,
+    featured: false
   }
 ];
 
+const STUFFED_CRUST_OPTIONS = [
+  { id: "creme-cheese", name: "Creme Cheese", prices: { P: 12, M: 14, G: 16 } },
+  { id: "catupiry", name: "Catupiry®", prices: { P: 12, M: 14, G: 16 } },
+  { id: "chocolate", name: "Chocolate", prices: { P: 12, M: 14, G: 16 } },
+  { id: "chocolate-branco", name: "Chocolate Branco", prices: { P: 12, M: 14, G: 16 } },
+  { id: "dois-amores", name: "Dois Amores", prices: { P: 12, M: 14, G: 16 } }
+];
 const CATEGORY_LABELS = {
   todas: "Todas",
   classicas: "Clássicas",
@@ -361,5 +358,7 @@ const CATEGORY_LABELS = {
   doces: "Doces",
   bebidas: "Bebidas"
 };
+
+
 
 

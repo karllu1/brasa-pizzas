@@ -72,7 +72,9 @@ function loadCart() {
                     ? item.flavors.filter(
                         (flavor) => typeof flavor === "string"
                     )
-                    : []
+                    : [],
+                stuffedCrust: typeof item.stuffedCrust === "string" ? item.stuffedCrust : "",
+                stuffedCrustPrice: Number.isFinite(Number(item.stuffedCrustPrice)) ? Number(item.stuffedCrustPrice) : 0
             }));
     } catch {
         return [];
@@ -154,6 +156,10 @@ function addToCart(product, size = null, quantity = 1, options = {}) {
     }
 
     const flavorNames = flavors.map((flavor) => flavor.name);
+    const stuffedCrust = typeof options.stuffedCrust === "string" ? options.stuffedCrust : "";
+    const stuffedCrustPrice = Number.isFinite(Number(options.stuffedCrustPrice))
+        ? Number(options.stuffedCrustPrice)
+        : 0;
 
     const name = flavorNames.length > 1
         ? `${flavorNames[0]} / ${flavorNames[1]}`
@@ -181,7 +187,8 @@ function addToCart(product, size = null, quantity = 1, options = {}) {
         product.id,
         flavors.map((flavor) => flavor.id).join("-"),
         size || "unit",
-        unitPrice
+        unitPrice,
+        stuffedCrust || "no-crust"
     ].join("-");
 
     const existing = cart.find((item) => item.key === key);
@@ -197,6 +204,8 @@ function addToCart(product, size = null, quantity = 1, options = {}) {
             size,
             sizeLabel: size ? getSizeLabel(size) : null,
             price: unitPrice,
+            stuffedCrust,
+            stuffedCrustPrice,
             quantity
         });
     }
@@ -327,6 +336,9 @@ function renderCartItems() {
         const key = escapeHTML(item.key);
         const name = escapeHTML(item.name);
 
+        const crustInfo = item.stuffedCrust
+            ? `<small>Borda recheada: ${escapeHTML(item.stuffedCrust)} (+${formatCurrency(item.stuffedCrustPrice || 0)})</small>` : "";
+
         const sizeInfo = item.sizeLabel
             ? `
                 <small>
@@ -341,6 +353,7 @@ function renderCartItems() {
                 <div class="cart-item__info">
                     <strong>${name}</strong>
                     ${sizeInfo}
+                    ${crustInfo}
                     <span>${formatCurrency(item.price)} cada</span>
                 </div>
 
@@ -419,3 +432,4 @@ document.getElementById("deliveryLocation")?.addEventListener(
 );
 
 document.addEventListener("DOMContentLoaded", updateCartUI);
+

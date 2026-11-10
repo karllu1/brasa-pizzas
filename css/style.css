@@ -708,6 +708,10 @@ CARDS DE PIZZA E PRODUTOS
     box-shadow 0.2s ease;
 }
 
+.product-card--pizza .product-card__click {
+  border-color: rgba(255, 157, 0, 0.34);
+}
+
 .product-card__click:disabled {
   opacity: 0.65;
 }
@@ -727,6 +731,14 @@ CARDS DE PIZZA E PRODUTOS
   background: #161616;
 }
 
+.product-card__media--pizza.has-image {
+  aspect-ratio: 1 / 1;
+  border: 2px solid #ff9d00;
+  border-radius: 12px;
+  background: radial-gradient(circle at 50% 52%, rgba(255, 125, 0, 0.16), transparent 62%), #15120f;
+  box-shadow: 0 0 14px rgba(255, 126, 0, 0.08);
+}
+
 /* Fotos de bebidas: packshots individuais, fundo branco e produto centralizado. */
 .product-card__image--drink {
   object-fit: contain;
@@ -740,6 +752,8 @@ CARDS DE PIZZA E PRODUTOS
 .product-card__image--drink-32 { transform: scale(1.08); }
 .product-card__image--drink-33 { transform: scale(1.17); }
 .product-card__image--drink-34 { transform: scale(1.1); }
+.product-card__image--drink-35 { transform: scale(1.14); }
+.product-card__image--drink-36 { transform: scale(1.12); }
 .product-card__image {
   width: 100%;
   height: 100%;
@@ -2112,6 +2126,8 @@ ACESSIBILIDADE E MOVIMENTO REDUZIDO
   .product-card__image--drink-32 { transform: scale(1.08); }
   .product-card__image--drink-33 { transform: scale(1.17); }
   .product-card__image--drink-34 { transform: scale(1.1); }
+.product-card__image--drink-35 { transform: scale(1.14); }
+.product-card__image--drink-36 { transform: scale(1.12); }
 }
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -2123,6 +2139,8 @@ ACESSIBILIDADE E MOVIMENTO REDUZIDO
     transition-duration: 0.01ms !important;
   }
 }
+
+
 
 
 

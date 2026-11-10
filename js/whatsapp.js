@@ -1,74 +1,3 @@
-function buildWhatsappMessage() {
-  const itemLines = cart.map((item) => {
-    const size = item.sizeLabel
-      ? `\nTamanho: ${item.sizeLabel}`
-      : "";
-
-    const flavors = item.flavors?.length > 1
-      ? `\nSabores: ${item.flavors.join(" / ")} (meio a meio)`
-      : "";
-
-    return `${item.quantity}x ${item.name}${size}${flavors}\n${formatCurrency(item.price * item.quantity)}`;
-  }).join("\n\n");
-
-  const address = [
-    `${checkoutData.street}, ${checkoutData.number}`,
-    checkoutData.neighborhood,
-    checkoutData.complement ? `Complemento: ${checkoutData.complement}` : "",
-    checkoutData.reference ? `Referência: ${checkoutData.reference}` : ""
-  ].filter(Boolean).join("\n");
-
-  const payment =
-    checkoutData.payment === "Dinheiro" &&
-    checkoutData.needsChange === "Sim"
-      ? `Dinheiro (troco para ${formatCurrency(parseMoney(checkoutData.changeAmount))})`
-      : checkoutData.payment;
-
-  return `Olá, ${CONFIG.businessName}!
-
-Gostaria de fazer um pedido:
-
-${itemLines}
-
-Endereço:
-${address}
-
-Nome: ${checkoutData.name}
-Telefone: ${checkoutData.phone}
-
-Pagamento: ${payment}
-
-Subtotal: ${formatCurrency(getCartSubtotal())}
-Entrega: ${formatCurrency(CONFIG.deliveryFee)}
-
-TOTAL: ${formatCurrency(getCartTotal())}`;
-}
-
-document.getElementById("sendWhatsappButton")?.addEventListener("click", () => {
-  if (!checkoutData || !cart.length) {
-    showToast("Não foi possível montar o pedido.");
-    return;
-  }
-
-  const message = encodeURIComponent(buildWhatsappMessage());
-  const url = `https://wa.me/${CONFIG.whatsapp}?text=${message}`;
-
-  const whatsappWindow = window.open(url, "_blank");
-
-  if (whatsappWindow) {
-
-    clearCart();
-    checkoutData = null;
-
-    closeModal("reviewModal");
-    closeModal("checkoutModal");
-    closeModal("cartModal");
-    
-    showToast("Pedido enviado para o WhatsApp. Carrinho limpo!");
-  } 
-  window.open(url, "_blank", "noopener,noreferrer");
-});
-
 document.getElementById("navCartButton")?.addEventListener("click", () => {
   openModal("cartModal");
 });
@@ -179,10 +108,13 @@ function buildWhatsappMessage() {
             : "";
 
         const flavors = item.flavors?.length > 1
-            ? `\nSabores: ${item.flavors.join(" / ")} (meio a meio)`
-            : "";
+      ? `\\nSabores: ${item.flavors.join(" / ")} (meio a meio)`
+      : "";
+    const crust = item.stuffedCrust
+      ? `\\nBorda recheada: ${item.stuffedCrust} (+${formatCurrency(item.stuffedCrustPrice || 0)})`
+      : "";
 
-        return `${item.quantity}x ${item.name}${size}${flavors}\n${formatCurrency(item.price * item.quantity)}`;
+    return `${item.quantity}x ${item.name}${size}${flavors}${crust}\\n${formatCurrency(item.price * item.quantity)}`;
     }).join("\n\n");
 
     const address = [
@@ -258,3 +190,4 @@ document.getElementById("sendWhatsappButton")?.addEventListener("click", () => {
 
     showToast("Pedido preparado no WhatsApp. Carrinho limpo!");
 });
+

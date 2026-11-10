@@ -67,7 +67,7 @@ function productCard(product) {
     const drink = isDrink(product);
     const imageFitClass = product.category === "bebidas"
         ? " product-card__image--drink product-card__image--drink-" + escapeAttribute(product.id)
-        : "";
+        : " product-card__image--pizza";
 
     const imageMarkup =
         CONFIG.useProductImages && product.image
@@ -105,7 +105,7 @@ function productCard(product) {
         CATEGORY_LABELS[product.category] || product.category;
 
     return `
-        <article class="product-card ${product.available ? "" : "is-unavailable"}">
+        <article class="product-card ${product.category === "bebidas" ? "product-card--drink" : "product-card--pizza"} ${product.available ? "" : "is-unavailable"}">
             <button
                 class="product-card__click"
                 type="button"
@@ -115,7 +115,7 @@ function productCard(product) {
                     ? `Escolher ${escapeAttribute(product.name)}`
                     : `${escapeAttribute(product.name)} indisponível`}"
             >
-                <div class="product-card__media ${CONFIG.useProductImages && product.image ? "has-image" : "no-image"}">
+                <div class="product-card__media ${drink ? "product-card__media--drink" : "product-card__media--pizza"} ${CONFIG.useProductImages && product.image ? "has-image" : "no-image"}">
                     ${imageMarkup}
 
                     ${!product.available
@@ -365,6 +365,16 @@ function openProduct(product) {
                 </p>
             </div>
 
+            <label class="field" for="stuffedCrust">
+                Borda recheada (opcional)
+                <select id="stuffedCrust">
+                    <option value="">Sem borda recheada</option>
+                    ${STUFFED_CRUST_OPTIONS.map((option) => `
+                        <option value="${escapeAttribute(option.id)}">${escapeHTML(option.name)}</option>
+                    `).join("")}
+                </select>
+            </label>
+            <p class="flavor-price-note" id="crustPriceNote">Escolha uma borda recheada para ver o acréscimo.</p>
             <div class="quantity-row">
                 <span>Quantidade</span>
 
@@ -415,6 +425,7 @@ function setupProductModal() {
     const minusButton = content.querySelector("#modalMinus");
     const plusButton = content.querySelector("#modalPlus");
     const addButton = content.querySelector("#modalAddButton");
+    const stuffedCrustSelect = content.querySelector("#stuffedCrust");
 
     if (
         !quantityEl ||
@@ -458,7 +469,10 @@ function setupProductModal() {
 
             addButton.disabled = false;
 
-            unitPrice = pizzaPriceForFlavors(first, second, size);
+            const selectedCrust = STUFFED_CRUST_OPTIONS.find((option) => option.id === stuffedCrustSelect?.value);
+            const crustPrice = selectedCrust ? selectedCrust.prices[size] : 0;
+            const baseUnitPrice = pizzaPriceForFlavors(first, second, size);
+            unitPrice = baseUnitPrice + crustPrice;
 
             ["P", "M", "G"].forEach((currentSize) => {
                 const priceElement = content.querySelector(
@@ -467,15 +481,18 @@ function setupProductModal() {
 
                 if (!priceElement) return;
 
-                const price = pizzaPriceForFlavors(
-                    first,
-                    second,
-                    currentSize
-                );
+                const basePrice = pizzaPriceForFlavors(first, second, currentSize);
+                const price = basePrice + (selectedCrust ? selectedCrust.prices[currentSize] : 0);
 
                 priceElement.textContent = formatCurrency(price);
             });
 
+            const crustNote = content.querySelector("#crustPriceNote");
+            if (crustNote) {
+                crustNote.textContent = selectedCrust
+                    ? `Borda ${selectedCrust.name}: acréscimo de ${formatCurrency(crustPrice)} no tamanho ${size}.`
+                    : "Escolha uma borda recheada para ver o acréscimo.";
+            }
             const note = content.querySelector("#flavorPriceNote");
 
             if (note) {
@@ -486,7 +503,7 @@ function setupProductModal() {
                     note.textContent =
                         `Meio a meio: (${formatCurrency(first.prices[size])} + ` +
                         `${formatCurrency(second.prices[size])}) ÷ 2 = ` +
-                        `${formatCurrency(unitPrice)}.`;
+                        `${formatCurrency(baseUnitPrice)}.`;
                 } else {
                     note.textContent =
                         "Escolha um segundo sabor para calcular o valor meio a meio.";
@@ -513,6 +530,8 @@ function setupProductModal() {
     content.querySelectorAll('input[name="modalSize"]').forEach((radio) => {
         radio.addEventListener("change", update);
     });
+
+    stuffedCrustSelect?.addEventListener("change", update);
 
     ["firstFlavor", "secondFlavor"].forEach((id) => {
         const select = content.querySelector(`#${id}`);
@@ -545,15 +564,16 @@ function setupProductModal() {
             ? [first, second]
             : [first];
 
-        const unitPrice = pizzaPriceForFlavors(
-            first,
-            flavors.length > 1 ? flavors[1] : null,
-            size
-        );
+        const baseUnitPrice = pizzaPriceForFlavors(first, flavors.length > 1 ? flavors[1] : null, size);
+        const selectedCrust = STUFFED_CRUST_OPTIONS.find((option) => option.id === stuffedCrustSelect?.value);
+        const crustPrice = selectedCrust ? selectedCrust.prices[size] : 0;
+        const unitPrice = baseUnitPrice + crustPrice;
 
         addToCart(first, size, quantity, {
             flavors,
-            unitPrice
+            unitPrice,
+            stuffedCrust: selectedCrust?.name || "",
+            stuffedCrustPrice: crustPrice
         });
 
         closeModal("productModal");
@@ -610,6 +630,8 @@ if (document.readyState === "loading") {
 } else {
     initializeMenu();
 }
+
+
 
 
 
